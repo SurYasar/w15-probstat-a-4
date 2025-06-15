@@ -242,7 +242,7 @@ Maka hanya metode belajar yang berpengaruh signifikan. Jenis kelamin dan interak
 ## Implementasi dalam Python
 Menggunakan contoh soal di atas, berikut implementasi One-Way ANOVA dan Two-Way ANOVA dalam python:
 ### One-Way ANOVA
-```
+```py
 from scipy.stats import f_oneway
 
 # Data nilai dari 3 metode
@@ -263,7 +263,7 @@ else:
 
 ```
 ### Two-Way ANOVA
-```
+```py
 import pandas as pd
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
