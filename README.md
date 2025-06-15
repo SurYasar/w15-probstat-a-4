@@ -238,3 +238,56 @@ Hasil:
 - Interaksi A×B → F = 0.30 < 3.89 → Tidak signifikan
 
 Maka hanya metode belajar yang berpengaruh signifikan. Jenis kelamin dan interaksi tidak signifikan.
+
+## Implementasi dalam Python
+Menggunakan contoh soal di atas, berikut implementasi One-Way ANOVA dan Two-Way ANOVA dalam python:
+### One-Way ANOVA
+```
+from scipy.stats import f_oneway
+
+# Data nilai dari 3 metode
+tatap_muka = [80, 85, 78, 82, 84]
+daring = [75, 78, 74, 72, 76]
+blended = [88, 85, 90, 87, 89]
+
+# Uji One-Way ANOVA
+f_stat, p_val = f_oneway(tatap_muka, daring, blended)
+
+print("One-Way ANOVA")
+print(f"F-statistic: {f_stat:.2f}")
+print(f"P-value: {p_val:.4f}")
+if p_val < 0.05:
+    print("→ Terdapat perbedaan signifikan antara metode belajar.")
+else:
+    print("→ Tidak terdapat perbedaan signifikan.")
+
+```
+### Two-Way ANOVA
+```
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+# Data nilai siswa berdasarkan metode & jenis kelamin
+data = {
+    "Nilai": [
+        80, 85, 82, 88, 90, 87,     # Tatap Muka (L, P)
+        75, 70, 73, 76, 78, 74,     # Daring (L, P)
+        84, 86, 85, 89, 91, 90      # Blended (L, P)
+    ],
+    "Metode": [
+        "Tatap Muka"] * 6 + ["Daring"] * 6 + ["Blended"] * 6,
+    "Kelamin": [
+        "L"] * 3 + ["P"] * 3 + ["L"] * 3 + ["P"] * 3 + ["L"] * 3 + ["P"] * 3,
+}
+
+df = pd.DataFrame(data)
+
+# Two-Way ANOVA dengan interaksi
+model = ols('Nilai ~ C(Metode) + C(Kelamin) + C(Metode):C(Kelamin)', data=df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+print("\nTwo-Way ANOVA")
+print(anova_table)
+
+```
