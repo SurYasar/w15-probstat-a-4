@@ -128,3 +128,45 @@ Keterangan:
 - n: jumlah observasi per sel
 - ab: jumlah kombinasi level
 - N: total data (a x b x n)
+
+## Contoh Soal One-Way ANOVA
+### Soal
+Seorang peneliti ingin mengetahui apakah tiga metode belajar (tatap muka, daring, dan blended) memberikan hasil nilai ujian yang berbeda secara signifikan kepada siswa.
+Nilai ujian dari 5 siswa untuk masing-masing metode:
+
+| Metode | Nilai | n |
+| :--: | :--: | :--: |
+| Tatap Muka | 80, 85, 78, 82, 84 | 5 |
+| Daring | 75, 78, 74, 72, 76 | 5 |
+| Blended | 88, 85, 90, 87, 89 | 5 |
+| Total n |  | 15 |
+
+Gunakan One-Way ANOVA dengan tingkat signifikansi a = 0.05 untuk menjawab:
+1. Apakah terdapat perbedaan rata-rata nilai ujian antar ketiga metode belajar tersebut?
+2. Jika terdapat perbedaan, metode mana yang memiliki perbedaan paling signifikan?
+
+### Jawab
+1. Hitung rata-rata tiap grup & rata-rata total
+   - Tatap Muka: (80+85+78+82+84)/5 = 81.8
+   - Daring: (75+78+74+72+76)/5 = 75.0
+   - Blended: (88+85+90+87+89)/5 = 87.8
+   - Rata-rata total (grand mean) = (Σ semua nilai)/15 = 81.53
+2. Hitung SST
+   ![image](https://github.com/user-attachments/assets/9b608b4f-54ea-4928-aade-a7af48f3671c)
+   Gunakan semua 15 data dan kurangi dengan grand mean, maka
+   ![image](https://github.com/user-attachments/assets/f0872ce6-d2cb-4d5c-970d-434e6a5ec315)
+
+3. Hitung SSB
+   ![image](https://github.com/user-attachments/assets/b4944574-7951-4f53-8715-c2847e9a37ff)
+
+4. Hitung SSW
+   - SSW=SST−SSB=425.2−410.81=14.39
+   
+5. Hitung df dan F-score
+   - df between = k - 1 = 2
+   - df within = N - k = 12
+     ![image](https://github.com/user-attachments/assets/1c418e19-26df-4b5f-9617-9c572b3375c2)
+
+6. Uji hipotesis
+   Bandingkan F hitung (171.18) dengan F kritis dari tabel F (3.89)
+   Kesimpulan: Karena 171.18 > 3.89 -> Tolak H<sub>0</sub> -> ada perbedaan signifikan.
