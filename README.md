@@ -151,12 +151,12 @@ Gunakan One-Way ANOVA dengan tingkat signifikansi a = 0.05 untuk menjawab:
    - Daring: (75+78+74+72+76)/5 = 75.0
    - Blended: (88+85+90+87+89)/5 = 87.8
    - Rata-rata total (grand mean) = (Σ semua nilai)/15 = 81.53
-2. Hitung SST
-   ![image](https://github.com/user-attachments/assets/9b608b4f-54ea-4928-aade-a7af48f3671c)
+2. Hitung SST <br>
+   ![image](https://github.com/user-attachments/assets/9b608b4f-54ea-4928-aade-a7af48f3671c) <br>
    Gunakan semua 15 data dan kurangi dengan grand mean, maka
    ![image](https://github.com/user-attachments/assets/f0872ce6-d2cb-4d5c-970d-434e6a5ec315)
 
-3. Hitung SSB
+3. Hitung SSB <br>
    ![image](https://github.com/user-attachments/assets/b4944574-7951-4f53-8715-c2847e9a37ff)
 
 4. Hitung SSW
@@ -170,3 +170,71 @@ Gunakan One-Way ANOVA dengan tingkat signifikansi a = 0.05 untuk menjawab:
 6. Uji hipotesis
    Bandingkan F hitung (171.18) dengan F kritis dari tabel F (3.89)
    Kesimpulan: Karena 171.18 > 3.89 -> Tolak H<sub>0</sub> -> ada perbedaan signifikan.
+
+## Contoh Soal Two-Way ANOVA
+### Soal
+Seorang guru ingin mengetahui pengaruh jenis metode belajar dan jenis kelamin terhadap nilai ujian siswa.
+Setiap guru terdiri dari 3 siswa (total 18 siswa)
+| Metode Belajar | Laki-laki | Perempuan |
+| :--: | :--: | :--: |
+| Tatap Muka | 80, 85, 82 | 88, 90, 87 |
+| Daring | 75, 70, 73 | 76, 78, 74 |
+| Blended | 84, 86, 85 | 89, 91, 90 |
+
+Gunakan Two-Way ANOVA (a = 0.05) untuk menentukan:
+1. Apakah terdapat pengaruh jenis metode belajar terhadap nilai ujian?
+2. Apakah terdapat pengaruh jenis kelamin terhadap nilai ujian?
+3. Apakah terdapat interaksi antara metode belajar dan jenis kelamin?
+
+### Jawab
+#### Struktur Data
+Setiap kombinasi (AxB) berisi 3 siswa -> total = 18 data
+Faktor A (Metode Belajar): Tatap Muka, Daring, Blended (a = 3)
+Faktor B (Jenis Kelamin): Laki-laki, Perempuan (b = 2)
+
+#### 1. Hitung rata-rata sel, rata-rata baris (A), kolom (B), dan grand mean
+- Rata-rata per sel:
+  - Tatap Muka (L): (80+85+82)/3 = 82.33
+  - Tatap Muka (P): (88+90+87)/3 = 88.33
+  - Daring (L): (75+70+73)/3 = 72.67
+  - Daring (P): (76+78+74)/3 = 76.00
+  - Blended (L): (84+86+85)/3 = 85.00
+  - Blended (P): (89+91+90)/3 = 90.00
+- Rata-rata per metode (A):
+  - Tatap Muka: (82.33 + 88.33)/2 = 85.33
+  - Daring: (72.67 + 76.00)/2 = 74.33
+  - Blended: (85.00 + 90.00)/2 = 87.5
+- Rata-rata per jenis kelamin (B):
+  - Laki-laki: (82.33 + 72.67 + 85.00)/3 = 80.00
+  - Perempuan: (88.33 + 76.00 + 90.00)/3 = 84.78
+- Grand mean (GM): ![image](https://github.com/user-attachments/assets/09ebead1-fd09-497b-9171-18281258b000)
+
+#### 2. Hitung SSA, SSB, SSAB, SSE, SST
+Secara ringkas (hasil perhitungan dibulatkan):
+- SSA = n_b × Σ (rata²A - GM)² = 2×[(85.33 - 82.39)² + (74.33 - 82.39)² + (87.5 - 82.39)²] ≈ 263.66
+- SSB = n_a × Σ (rata²B - GM)² = 3×[(80.00 - 82.39)² + (84.78 - 82.39)²] ≈ 50.89
+- SSAB = Σ ((sel mean - rataA - rataB + GM)² × n) ≈ 9.56
+- SST = Σ semua (X - GM)² ≈ 518.22
+- SSE = SST - SSA - SSB - SSAB = 518.22 - 263.66 - 50.89 - 9.56 ≈ 194.11
+
+#### 3. df dan F
+
+| Sumber       | df | SS     | MS     | F    |
+| ------------ | -- | ------ | ------ | ---- |
+| Metode (A)   | 2  | 263.66 | 131.83 | 8.14 |
+| Kelamin (B)  | 1  | 50.89  | 50.89  | 3.14 |
+| Interaksi AB | 2  | 9.56   | 4.78   | 0.30 |
+| Error        | 12 | 194.11 | 16.18  | —    |
+| Total        | 17 | 518.22 | —      | —    |
+
+#### 4. Interpretasi
+Bandingkan dengan F-tabel (a = 0.05):
+- F(2,12) ≈ 3.89
+- F(1,12) ≈ 4.75
+
+Hasil:
+- Faktor A (metode belajar) → F = 8.14 > 3.89 → Signifikan
+- Faktor B (jenis kelamin) → F = 3.14 < 4.75 → Tidak signifikan
+- Interaksi A×B → F = 0.30 < 3.89 → Tidak signifikan
+
+Maka hanya metode belajar yang berpengaruh signifikan. Jenis kelamin dan interaksi tidak signifikan.
